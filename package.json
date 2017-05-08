@@ -1,0 +1,13 @@
+{
+  "name": "tidy",
+  "version": "1.0.0",
+  "description": "Alternative frontend to Babel",
+  "main": "index.js",
+  "author": "AL Downtown",
+  "license": "Apache 2",
+  "dependencies": {
+    "babel-core": "^6.24.1",
+    "jison": "^0.4.17",
+    "lex": "^1.7.9"
+  }
+}

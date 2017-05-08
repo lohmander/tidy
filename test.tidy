@@ -1,0 +1,47 @@
+
+
+keywords =
+  { greeting: "Hello"
+  }
+
+
+fun greet(name, age, ethnicity):
+  123
+
+
+fun here(asdf):
+  fun test(asdf):
+    dopp
+
+  obj =
+    { a: 123
+    , b: true
+    , c: test(wop)
+    }
+
+  obj
+  |> test()
+  |> topp("asdf") |> test()
+  |> yep()
+
+
+fun test(asdf):
+  x = asdf
+  [ x
+  , "123"
+  , x |> here() |> greet()
+  ]
+
+fun greet():
+  "hello"
+
+cls Test():
+
+  sayHi(x):
+    x + d
+
+  dope(dod):
+    fun effYeah():
+      false
+    true
+

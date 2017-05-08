@@ -1,0 +1,74 @@
+import "lex" Lexer
+
+
+indent = [0]
+
+
+keywords =
+  [ "fun"
+  , "cls"
+  , "or"
+  , "and"
+  , "is"
+  , "not"
+  , "import"
+  , "export"
+  , "default"
+  , "new"
+  , "match"
+  , "using"
+  , "when"
+  ]
+
+
+symbols =
+  [ ":"
+  , ";"
+  , ","
+  , "="
+  , "+"
+  , "-"
+  , "*"
+  , "/"
+  , "^"
+  , "%"
+  , "~"
+  , "."
+  , "?."
+  , "->"
+  , "=>"
+  ]
+
+
+operators =
+  [ "|>"
+  , "<|"
+  , ".."
+  ]
+
+
+fun indentationRule(lexeme):
+  indentation = lexeme.length
+
+  if indentation > indent[0]:
+    indent = indentation :> indent
+    "INDENT"
+  else:
+    tokens = []
+
+    while indentation < indent[0]:
+      tokens = tokens <: "DEDENT"
+      indent = indent[1:]
+
+    if tokens.length:
+      tokens
+    else:
+
+
+export default new Lexer
+|> addRule(/\n+?\s+/, indentation) ..
+|> addKeywords(keywords)
+|> addSymbols(operators)
+|> addSymbols(symbols)
+|> addRule(/(true|false)/, -> ~yytext = $0; "BOOL")
+|> addRule(/[a-zA-Z][a-zA-Z0-9_-]*/, -> ~yytext = $0; "ID")
