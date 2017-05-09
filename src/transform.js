@@ -149,6 +149,13 @@ function _classMethod(id, parameters, body) {
   });
 }
 
+function _member(obj, id) {
+  return _node("MemberExpression", {
+    object: obj,
+    property: id,
+  });
+}
+
 module.exports = function transform(node) {
   switch (node.type) {
     case "Identifier":
@@ -211,6 +218,17 @@ module.exports = function transform(node) {
 
     case "ObjectProperty":
       return _objectProp(transform(node.key), transform(node.value));
+
+    case "MemberExpression":
+      var prop = node.accessors.pop();
+      var obj = node.accessors.length > 1
+        ? transform(node)
+        : _id(node.accessors.pop());
+
+      return _member(
+          obj,
+          _id(prop)
+      );
 
     case "ArrayExpression":
       return _array(node.elements.map(transform));

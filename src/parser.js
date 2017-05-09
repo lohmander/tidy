@@ -100,7 +100,8 @@ var grammar =
       ]
 
     , objProp:
-      [ [ "id COLON expr", "$$ = { type: 'ObjectProperty', key: $1, value: $3 }" ] ]
+      [ [ "id COLON expr", "$$ = { type: 'ObjectProperty', key: $1, value: $3 }" ]
+      ]
 
     , id:
       [ [ "ID", "$$ = { type: 'Identifier', name: yytext };" ]
@@ -110,6 +111,7 @@ var grammar =
       [ [ "NUMBER", "$$ = { type: 'LiteralNumber', value: Number(yytext) };" ]
       , [ "STRING", "$$ = { type: 'LiteralString', value: yytext };" ]
       , [ "BOOL", "$$ = { type: 'LiteralBool', value: yytext };" ]
+      , [ "MEMBER", "$$ = { type: 'MemberExpression', accessors: yytext }" ]
       , [ "id", "$$ = $1" ]
       ]
     }
@@ -124,9 +126,7 @@ var src = fs.readFileSync(process.argv[2], 'utf-8');
 var babel = require('babel-core');
 
 var result = babel.transform(`
-    class Test {
-      test(x) {}
-    }
+x.top.c
 `);
 
 
@@ -135,7 +135,7 @@ delete result.ast.tokens;
 
 // console.log(JSON.stringify(newast, 2, 2))
 // console.log('---')
-// console.log(JSON.stringify(result.ast, 2, 2));
+console.log(JSON.stringify(result.ast, 2, 2));
 
 // var ast = {
 // };
