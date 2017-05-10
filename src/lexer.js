@@ -66,9 +66,13 @@ module.exports = (new Lexer)
     this.yytext = lexeme;
     return "ID";
   })
-  .addRule(/[a-zA-Z][a-zA-Z0-9\.]*/, function(lexeme) {
-    this.yytext = lexeme.split('.');
+  .addRule(/[a-zA-Z][a-zA-Z0-9]*\./, function(lexeme) {
+    this.yytext = lexeme;
     return "MEMBER";
+  })
+  .addRule(/[a-zA-Z][a-zA-Z0-9]*\?\./, function(lexeme) {
+    this.yytext = lexeme;
+    return "NULL_MEMBER";
   })
   .addRule(/[0-9]+(?:\.[0-9]+)?\b/, function (lexeme) {
     this.yytext = lexeme;

@@ -19,7 +19,7 @@ fun here(asdf):
     , c: test(wop)
     }
 
-  obj.c.test.topp
+  obj?.c?.test
   |> test()
   |> topp("asdf") |> test()
   |> yep()

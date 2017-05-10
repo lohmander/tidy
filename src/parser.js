@@ -107,11 +107,18 @@ var grammar =
       [ [ "ID", "$$ = { type: 'Identifier', name: yytext };" ]
       ]
 
+    , members:
+      [ [ "NULL_MEMBER", "$$ = [$1]" ]
+      , [ "MEMBER", "$$ = [$1]"]
+      , [ "MEMBER members", "$members.shift($1); $$ = $members" ]
+      , [ "NULL_MEMBER members", "$members.shift($1); $$ = $members" ]
+      ]
+
     , atom:
       [ [ "NUMBER", "$$ = { type: 'LiteralNumber', value: Number(yytext) };" ]
       , [ "STRING", "$$ = { type: 'LiteralString', value: yytext };" ]
       , [ "BOOL", "$$ = { type: 'LiteralBool', value: yytext };" ]
-      , [ "MEMBER", "$$ = { type: 'MemberExpression', accessors: yytext }" ]
+      , [ "members", "$$ = { type: 'MemberExpression', accessors: yytext }" ]
       , [ "id", "$$ = $1" ]
       ]
     }
